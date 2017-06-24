@@ -78,8 +78,10 @@ class ReverseRelationsService extends BaseApplicationComponent
     public function checkForAndDelete($element, $targetField, $newSourceIds, $elementType, $removeAll)
     {
         $oldSourceIds = array();
-        foreach ($this->oldSourceElements[$element->model->handle] as $oldSourceRelation) {
-            $oldSourceIds[] = $oldSourceRelation->id;
+        if (array_key_exists($element->model->handle, $this->oldSourceElements)) {
+            foreach ($this->oldSourceElements[$element->model->handle] as $oldSourceRelation) {
+                $oldSourceIds[] = $oldSourceRelation->id;
+            }
         }
 
         // If field was populated before
